@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Security Awareness Test — Central Telecoms</title>
+<style>
+  /* ============================================================
+     EDIT THESE: company name + contacts appear in the markup below.
+     Search for [EDIT] to find every spot you may want to change.
+     ============================================================ */
+
+  :root {
+    --bg:        #f4f5f7;
+    --surface:   #ffffff;
+    --ink:       #14181f;
+    --muted:     #5b6472;
+    --line:      #e4e7ec;
+    --alert:     #cf1124;   /* the verdict */
+    --alert-bg:  #fdecee;
+    --hazard-a:  #f2b705;   /* caution tape */
+    --hazard-b:  #1a1a1a;
+    --learn:     #0b6b5b;   /* constructive section */
+    --learn-bg:  #e9f4f1;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: "Segoe UI", -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Signature element: caution tape running across the top */
+  .hazard {
+    height: 18px;
+    background: repeating-linear-gradient(
+      45deg,
+      var(--hazard-b) 0 22px,
+      var(--hazard-a) 22px 44px
+    );
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px 72px;
+  }
+
+  /* ---- Hero verdict ---- */
+  .verdict {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-top: none;
+    border-radius: 0 0 6px 6px;
+    padding: 48px 40px 40px;
+    opacity: 0;
+    transform: translateY(8px);
+    animation: rise .5s ease forwards;
+  }
+
+  @keyframes rise {
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .verdict { animation: none; opacity: 1; transform: none; }
+  }
+
+  .flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--alert-bg);
+    color: var(--alert);
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: .04em;
+    padding: 6px 12px;
+    border-radius: 100px;
+    margin-bottom: 22px;
+  }
+  .flag svg { width: 15px; height: 15px; }
+
+  h1 {
+    font-size: clamp(30px, 6vw, 44px);
+    line-height: 1.08;
+    letter-spacing: -0.02em;
+    font-weight: 800;
+    margin: 0 0 16px;
+  }
+  h1 .hit { color: var(--alert); }
+
+  .lede {
+    font-size: 18px;
+    color: var(--muted);
+    margin: 0 0 24px;
+    max-width: 56ch;
+  }
+
+  .reassure {
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    background: #f8f9fb;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 16px 18px;
+    font-size: 15px;
+    color: var(--ink);
+  }
+  .reassure svg { width: 20px; height: 20px; flex: none; color: var(--learn); margin-top: 1px; }
+  .reassure strong { font-weight: 700; }
+
+  /* ---- Content sections ---- */
+  section {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 6px;
+    padding: 32px 40px;
+    margin-top: 20px;
+  }
+
+  h2 {
+    font-size: 20px;
+    letter-spacing: -0.01em;
+    margin: 0 0 14px;
+  }
+
+  p { margin: 0 0 14px; }
+  p:last-child { margin-bottom: 0; }
+
+  /* Red-flag checklist */
+  .flags-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .flags-list li {
+    display: flex;
+    gap: 14px;
+    padding: 14px 0;
+    border-top: 1px solid var(--line);
+  }
+  .flags-list li:first-child { border-top: none; padding-top: 4px; }
+  .flags-list .mark {
+    flex: none;
+    width: 26px; height: 26px;
+    border-radius: 6px;
+    background: var(--alert-bg);
+    color: var(--alert);
+    display: grid;
+    place-items: center;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .flags-list h3 { font-size: 15px; margin: 2px 0 3px; }
+  .flags-list p { font-size: 14.5px; color: var(--muted); margin: 0; }
+
+  /* Constructive "next time" block */
+  .learn { background: var(--learn-bg); border-color: #cfe6df; }
+  .learn h2 { color: var(--learn); }
+  .learn ol { margin: 0; padding-left: 20px; }
+  .learn li { padding: 5px 0; }
+
+  /* Footer / contact */
+  footer {
+    margin-top: 28px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--muted);
+  }
+  footer a { color: var(--learn); font-weight: 600; }
+  footer .brand { font-weight: 700; color: var(--ink); }
+
+  a:focus-visible, .flag:focus-visible {
+    outline: 2px solid var(--learn);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  @media (max-width: 560px) {
+    .verdict { padding: 36px 24px 28px; }
+    section { padding: 26px 24px; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="hazard" role="presentation"></div>
+
+  <div class="wrap">
+
+    <!-- HERO VERDICT -->
+    <div class="verdict">
+      <span class="flag">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M12 2 1 21h22L12 2zm0 6.5 6.9 12H5.1L12 8.5zM11 11v4h2v-4h-2zm0 5v2h2v-2h-2z"/>
+        </svg>
+        SIMULATED PHISHING TEST
+      </span>
+
+      <h1>You just clicked a <span class="hit">phishing link.</span></h1>
+
+      <p class="lede">
+        Good news: this one was a test. Bad news: in a real attack, that single
+        click could have handed a criminal your login, your inbox, and a way into
+        the rest of the business.
+      </p>
+
+      <div class="reassure">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M20 6 9 17l-5-5"/>
+        </svg>
+        <div>
+          <strong>Nothing was compromised.</strong> No credentials were captured
+          and nothing was installed. This was a controlled exercise run by
+          <!-- [EDIT] company name --><strong>Central Telecoms IT</strong> to help
+          everyone spot the real thing. Take two minutes to read the rest of this
+          page — that's the whole point.
+        </div>
+      </div>
+    </div>
+
+    <!-- WHAT HAPPENED -->
+    <section>
+      <h2>What just happened</h2>
+      <p>
+        You received an email designed to look legitimate and clicked a link
+        inside it. Real phishing emails are built to do exactly this — create a
+        reason to click before you have time to think. Attackers only need it to
+        work once.
+      </p>
+      <p>
+        Clicking is recorded against your account for this exercise so the team
+        can measure how the business responds and where extra training helps.
+        This is about building the habit, not catching anyone out.
+      </p>
+    </section>
+
+    <!-- RED FLAGS -->
+    <section>
+      <h2>The red flags to catch next time</h2>
+      <ul class="flags-list">
+        <li>
+          <span class="mark">!</span>
+          <div>
+            <h3>A sense of urgency</h3>
+            <p>"Act now", "your account will be suspended", "final notice". Pressure is the point — it stops you checking.</p>
+          </div>
+        </li>
+        <li>
+          <span class="mark">!</span>
+          <div>
+            <h3>The real sender address</h3>
+            <p>The display name can say anything. Check the actual address behind it, and be wary of look-alike domains (rn for m, .co for .com.au).</p>
+          </div>
+        </li>
+        <li>
+          <span class="mark">!</span>
+          <div>
+            <h3>Where the link really goes</h3>
+            <p>Hover over a link (or long-press on mobile) before tapping. If the destination doesn't match the sender, don't click.</p>
+          </div>
+        </li>
+        <li>
+          <span class="mark">!</span>
+          <div>
+            <h3>A request for your password or MFA code</h3>
+            <p>Legitimate services never ask you to confirm your password or one-time code via a link. Ever.</p>
+          </div>
+        </li>
+        <li>
+          <span class="mark">!</span>
+          <div>
+            <h3>Something that's slightly off</h3>
+            <p>Odd greetings, unexpected attachments, small spelling or formatting mistakes, or a request that just doesn't fit your normal workflow.</p>
+          </div>
+        </li>
+      </ul>
+    </section>
+
+    <!-- WHAT TO DO -->
+    <section class="learn">
+      <h2>What to do from here</h2>
+      <ol>
+        <li>Slow down. If an email pressures you to act fast, that's the moment to stop.</li>
+        <li>Verify through a channel you trust — call the person, or open the site by typing the address yourself rather than clicking.</li>
+        <li>Report anything suspicious. Reporting a real phishing email early can protect the whole company.</li>
+        <li>Never enter your password or MFA code on a page you reached by clicking an email link.</li>
+      </ol>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <p>
+        Spotted a suspicious email? Report it to
+        <!-- [EDIT] confirm the real reporting address / button -->
+        <a href="mailto:it-security@centraltelecoms.com.au">it-security@centraltelecoms.com.au</a>.
+      </p>
+      <p>Security awareness exercise · <span class="brand">Central Telecoms IT</span></p>
+    </footer>
+
+  </div>
+
+</body>
+</html>
